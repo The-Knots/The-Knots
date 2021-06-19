@@ -23,8 +23,7 @@ def process(img_path):
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
     ])
 
-    img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = Image.open(img_path)
     img = transform(img).unsqueeze(0)
     
     model = WindRegressor(resnet)
