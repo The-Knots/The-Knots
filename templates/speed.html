@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='speed.css') }}">
+    <style>
+        .subbtn:hover{
+            background-color: darkgrey;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block highlight %}
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link" aria-current="page" href="{{ url_for('dashboard') }}">Dashboard</a>
+    </li>
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link active" href="{{ url_for('speed_pred') }}">Speed Prediction</a>
+    </li>
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </symbol>
+                </svg>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg> {{ messages[0] }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="container-fluid d-flex justify-content-center">
+<<<<<<< HEAD
+        <form action = "{{ url_for('speed_pred') }}" method = "POST" enctype = "multipart/form-data">
+            <div class="drop-zone">
+=======
+        <form action = "http://localhost:5000/speed" method = "POST" enctype = "multipart/form-data">
+            <div class="drop-zone"  style="margin-right: 60px;">
+>>>>>>> 1b8f6a342768a0882027627fd03c8adc2a8b0203
+                <span class="drop-zone__prompt" style="color: rgb(36, 36, 36);">Drop file here or click to upload</span>
+                <input type="file" name="file" class="drop-zone__input" data-height="500">
+            </div>
+            <div class="text-center">
+                <input class = "subbtn" type="submit" style="margin-top: 25px; width: 150px; height: 50px; border-radius: 25px; border-width: 0px;" >
+            </div>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='speed.js') }}"></script>
+{% endblock %}

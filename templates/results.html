@@ -1,0 +1,534 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    img {
+        box-shadow: 20px 20px 60px #000000,
+            -20px -20px 60px #ffffff;
+    }
+</style>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    i = 0
+    function change() {
+        var speed = document.getElementById("speed");
+        var speed_value = Number(speed.innerHTML);
+        var metric = document.getElementById("metric");
+
+        i++;
+        if (i % 3 == 0) {
+            speed.innerHTML = (speed_value * 0.868976).toFixed(2);
+            metric.innerHTML = "knots";
+        } else if (i % 3 == 1) {
+            speed.innerHTML = (speed_value * 1.852).toFixed(2);
+            metric.innerHTML = "kmph";
+        } else {
+            speed.innerHTML = (speed_value * 0.621371).toFixed(2);
+            metric.innerHTML = "mph";
+        }
+    }
+</script>
+{% endblock %}
+
+{% block highlight %}
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link" aria-current="page" href="{{ url_for('dashboard') }}">Dashboard</a>
+    </li>
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link active" href="{{ url_for('speed_pred') }}">Speed Prediction</a>
+    </li>
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="row-1 d-flex flex-row-reverse">
+        <button class="metric-btn" onclick="change()">Toggle Metric</button>
+    </div>
+    <div class="container-fluid">
+        <table class="d-flex align-items-center justify-content-center">
+            <tr>
+                <td style="padding-left: 20px;">
+                    <img src="{{ url_for('static', filename= data.name) }}"
+                        style="height: 360px; width:360px; border-radius: 50px;">
+                </td>
+                <td class="text-center" style="padding-left: 50px;">
+                    <div class="cell-block" style="height: 400px; width: 400px; border-radius: 50px;">
+                        <div class="row-2" style="margin-top: 75px;">
+                            <p class="h4">Speed of cyclone</p><br>
+                        </div>
+                        <div class="row-4" style="margin-top: 25px;">
+                            <p class="display-4"><b id="speed">{{ data.speed }}</b> <span id="metric">knots</span></p>
+                        </div>
+                        <div class="row-2" style="margin-top: 75px;">
+                            <p> <span class="h5">Cyclone: <b>{{ data.type }}</b></span></p><br>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" rowspan="2" style="padding-left: 50px;"">
+                        <div class=" cell-block" style="height: 800px; width: 800px; border-radius: 50px;">
+                    <table>
+                        <tr>
+                            <div id="plot1" style="width: 91%; height: 47%; margin-top:25px;margin-left: 35px;">
+
+                            </div>
+                        </tr>
+                        <tr>
+                            <div id="plot2" style="width: 91%; height: 47%; margin-bottom:25px;margin-left: 35px;">
+
+                            </div>
+                        </tr>
+                    </table>
+    </div>
+    </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="cell-block" style="height: 400px; width: 400px; border-radius: 50px;">
+                <div class="h5 my-4 text-center">About {{ data.type }}</div>
+                {% if data.type == "Tropical Depression" %}
+                    <div class="px-4 lead">
+                        <i>An atmospheric low-pressure system originating in the tropics.</i>
+                    </div>
+                    <br>
+                    <div class="px-3">
+                        <ul>
+                            <li>Air at the surface moves toward the lower pressure area, rises, and creates more thunderstorms.</li>
+                            <li>With a tropical depression, heavy rains and strong winds can cause minor flooding and property damage.</li>
+                        </ul>
+                    </div>
+
+                {% elif data.type == "Tropical Storm" %}
+                    <div class="px-4 lead">
+                        <i></i>
+                    </div>
+                    
+                    <br>
+                    <div class="px-3">
+                        <ul>
+                            <li>Increased rainfall can cause more widespread flooding, and powerful winds can take down larger structures.</li>
+                            <li>During a tropical storm, emergency preparedness is crucial, as power could go out and leave you “in the dark”.</li>
+                        </ul>
+                    </div>                
+
+                {% elif data.type == "Category 1 Hurricane" %}
+                    <div class="px-4 lead">
+                        <i>Very dangerous winds will produce some damage.</i>
+                    </div>
+                    <br>
+                    <div class="px-3">
+                        <ul>
+                            <li>Frame homes, apartments and shopping centers may experience some damage, and snapped power lines could result in short-term power outages.</li>
+                            <li>A category one cyclone's strongest winds are GALES with typical gusts over open flat land.</li>
+                        </ul>
+                    </div>
+
+                {% elif data.type == "Category 2 Hurricane" %}
+                    <div class="px-4 lead">
+                        <i>Extremely dangerous winds will cause extensive damage.</i>
+                    </div>
+                    <div class="px-3 py-3">
+                        <ul>
+                            <li>There is a bigger risk of injury or death to people, livestock and pets from flying debris.</li>
+                            <li>Frame homes, apartment buildings and shopping centers may see major roof and siding damage, and many trees will be uprooted.</li>
+                            <li>Residents should expect near total power loss after the hurricane, with outages lasting anywhere from a few days to a few weeks.</li>
+                        </ul>
+                    </div>
+
+                {% elif data.type == "Category 3 Hurricane" %}
+                    <div class="px-4 lead text-center">
+                        <i>Devastating damage will occur.</i>
+                    </div>
+                    <div class="px-3 py-3">
+                        <ul>
+                            <li>There is a high risk of injury or death to people, livestock and pets from flying and falling debris.</li>
+                            <li>Even well-built frame homes, apartments and industrial buildings will likely experience major damage, and the storm will uproot many trees that may block roads.</li>
+                            <li>Electricity and water will likely be unavailable for several days to a few weeks after the storm.</li>
+                        </ul>
+                    </div>
+
+                {% elif data.type == "Category 4 Hurricane" %}
+                    <div class="px-4 lead text-center">
+                        <i>Catastrophic damage will occur</i>
+                    </div>
+                    <div class="px-3 py-3">
+                        <ul>
+                            <li>At these speeds, falling and flying debris poses a very high risk of injury or death to people, pets and livestock.</li>
+                            <li>Some frame homes may totally collapse, while well-built homes will likely see severe damage to their roofs, and apartment buildings can experience damage to upper floors.</li>
+                        </ul>
+                    </div>
+
+                {% elif data.type == "Category 5 Hurricane" %}
+                    <div class="px-4 lead text-center">
+                        <i>Catastrophic damage will occur</i>
+                    </div>
+                    <div class="px-3 py-3">
+                        <ul>
+                            <li>People, livestock and pets can be in danger from flying debris, even indoors.</li>
+                            <li>A Category 5 hurricane is likely to uproot most trees and ruin most power poles.</li>
+                            <li>Commercial buildings with wood roofs will experience severe damage, metal buildings may collapse and high-rise windows will nearly all be blown out.</li>
+                        </ul>
+                    </div>
+
+                {% endif %}
+            </div>
+        </td>
+
+        <td style="padding-left: 50px;">
+            <div class="cell-block" style="height: 400px; width: 400px; border-radius: 50px;">
+                <div class="h5 my-4 text-center">Prevention Methods</div>
+                {% if data.type == "Tropical Depression" %}
+                    <div class="px-4 lead text-center">
+                        <p class="lead"><i>With a tropical depression, heavy rains and strong winds can cause minor flooding and property damage. A tropical depression is not large enough to cause widespread devastation.</i></p>
+                    </div>
+                {% elif data.type == "Tropical Storm" %}
+                    <div class="px-4 lead text-center">
+                        <p class="lead"><i>It’s important to plan ahead and know what you should do in the event of tropical storm. An NOAA weather alert radio is essential since it can notify you of any impending danger and keep you up-to-date on developing weather conditions.</i></p>
+                    </div>
+
+                {% elif data.type == "Category 1 Hurricane" %}
+                    <div class="px-4">
+                        <b>Before the Storm</b>
+                        <ol>
+                            <li>Identify a safe shelter that is likely outside of harm’s way, and a route to get there.</li>
+                            <li>Coastal residents should store at least three days worth of food, in anticipation of a hurricane.</li>
+                        </ol>
+                    </div>
+                    <div class="px-4">
+                        <b>During the Storm</b>
+                        <ol>
+                            <li>If forced to weather a storm, take cover in the most secure building possible and stay away from windows.</li>
+                            <li>People should listen to local authorities on radio or television.</li>
+                        </ol>
+                    </div>
+                
+                {% elif data.type == "Category 2 Hurricane" %}
+                    <div class="px-4">
+                        <div class="px-4">
+                            <b>Before the Storm</b>
+                            <ol>
+                                <li>Identify a safe shelter that is likely outside of harm’s way and go there.</li>
+                                <li>Charge electronics and keep portable batteries nearby.</li>
+                            </ol>
+                        </div>
+                        <div class="px-4">
+                            <b>During the Storm</b>
+                            <ol>
+                                <li>Don’t use your phone or handle electrical equipment unless necessary. Lightning often follows wires, using a landline or other wired device could increase your chances of getting electrocuted.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                {% elif data.type == "Category 3 Hurricane" %}
+                    <div class="px-4">
+                        <div class="px-4">
+                            <ol>
+                                <li>If the building starts to break up, protect yourself with mattresses, rugs or blankets under a strong table or bench or hold onto a solid fixture, e.g. a water pipe.</li>
+                                <li>If the wind drops, don't assume the cyclone is over; violent winds will soon resume from another direction. Wait for the official 'all clear'.</li>
+                                <li>If you have to evacuate, or did so earlier, don't return until advised.</li>
+                            </ol>
+                        </div>
+                    </div>           
+
+                {% elif data.type == "Category 4 Hurricane" %}
+                    <div class="px-4">
+                        <div class="px-4">
+                            <ol>
+                                <li>If the building starts to break up, protect yourself with mattresses, rugs or blankets under a strong table or bench or hold onto a solid fixture, e.g. a water pipe.</li>
+                                <li>If the wind drops, don't assume the cyclone is over; violent winds will soon resume from another direction. Wait for the official 'all clear'.</li>
+                                <li>If you have to evacuate, or did so earlier, don't return until advised.</li>
+                            </ol>
+                        </div>
+                    </div>      
+
+                {% elif data.type == "Category 5 Hurricane" %}
+                    <div class="px-4">
+                        <div class="px-4">
+                            <ol>
+                                <li>If the building starts to break up, protect yourself with mattresses, rugs or blankets under a strong table or bench or hold onto a solid fixture, e.g. a water pipe.</li>
+                                <li>If the wind drops, don't assume the cyclone is over; violent winds will soon resume from another direction. Wait for the official 'all clear'.</li>
+                                <li>If you have to evacuate, or did so earlier, don't return until advised.</li>
+                            </ol>
+                        </div>
+                    </div>      
+                
+                {% endif %}
+            </div>
+        </td>
+    </tr>
+    </table>
+
+    {% if data.type == "Tropical Depression" %}
+    <style>
+        body {
+            background: #8ed98c;
+        }
+
+        .cell-block {
+            box-shadow: inset 5px 5px 11px #79b877,
+                inset -5px -5px 11px #a3faa1;
+            background-color: #8ed98c;
+            border: 4px dashed #8ed98c;
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #8ed98c;
+            box-shadow: 5px 5px 11px #7abb78,
+                -5px -5px 11px #a2f7a0;
+            border: none;
+            border-radius: 25px;
+            color: rgb(255, 255, 255);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #7abb78,
+                inset -5px -5px 11px #a2f7a0;
+        }
+    </style>
+    {% elif data.type == "Tropical Storm" %}
+    <style>
+        body {
+            background: #969696;
+        }
+
+        .cell-block {
+            box-shadow: inset 5px 5px 11px #808080,
+                inset -5px -5px 11px #adadad;
+            background-color: #969696;
+            border: 4px dashed #969696;
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #969696;
+            box-shadow: 5px 5px 11px #818181,
+                -5px -5px 11px #ababab;
+            border: none;
+            border-radius: 25px;
+            color: rgb(255, 255, 255);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #818181,
+                inset -5px -5px 11px #ababab;
+        }
+    </style>
+    {% elif data.type == "Category 1 Hurricane" %}
+    <style>
+        body {
+            background: #d39dff;
+        }
+
+        .cell-block {
+            background-color: #d39dff;
+            border: 4px dashed #d39dff;
+            box-shadow: inset 5px 5px 11px #b385d9,
+                inset -5px -5px 11px #f3b5ff;
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #d39dff;
+            box-shadow: 5px 5px 11px #b587db,
+                -5px -5px 11px #f1b3ff;
+            border: none;
+            border-radius: 25px;
+            color: rgb(255, 255, 255);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #b587db,
+                inset -5px -5px 11px #f1b3ff;
+        }
+    </style>
+    {% elif data.type == "Category 2 Hurricane" %}
+    <style>
+        body {
+            background: #aae0ff;
+        }
+
+        .cell-block {
+            background-color: #aae0ff;
+            border: 4px dashed #aae0ff;
+            box-shadow: inset 5px 5px 11px #91bed9,
+                inset -5px -5px 11px #c4ffff;
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #aae0ff;
+            box-shadow: 5px 5px 11px #92c1db,
+                -5px -5px 11px #c2ffff;
+            border: none;
+            border-radius: 25px;
+            color: rgb(255, 255, 255);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #92c1db,
+                inset -5px -5px 11px #c2ffff;
+        }
+    </style>
+    {% elif data.type == "Category 3 Hurricane" %}
+    <style>
+        body {
+            background: #ffe89d;
+        }
+
+        .cell-block {
+            background: #ffe89d;
+            border: 4px dashed #ffe89d;
+            box-shadow: inset 5px 5px 11px #d9c585,
+                inset -5px -5px 11px #ffffb5;
+
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #ffe89d;
+            border: none;
+            border-radius: 25px;
+            color: rgb(0, 0, 0);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 5px 5px 11px #dbc887,
+                -5px -5px 11px #ffffb3;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #dbc887,
+                inset -5px -5px 11px #ffffb3;
+        }
+    </style>
+    {% elif data.type == "Category 4 Hurricane" %}
+    <style>
+        body {
+            background: #e0ae00;
+        }
+
+        .cell-block {
+            background-color: #e0ae00;
+            border: 4px dashed #e0ae00;
+            box-shadow: inset 5px 5px 10px #ba9000,
+                inset -5px -5px 10px #ffcc00;
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #e0ae00;
+            box-shadow: 5px 5px 11px #c19600,
+                -5px -5px 11px #ffc600;
+            border: none;
+            border-radius: 25px;
+            color: rgb(255, 255, 255);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #c19600,
+                inset -5px -5px 11px #ffc600;
+        }
+    </style>
+    {% elif data.type == "Category 5 Hurricane" %}
+    <style>
+        body {
+            background: #b51212;
+        }
+
+        .cell-block {
+            background-color: #b51212;
+            border: 4px dashed #b51212;
+            box-shadow: inset 5px 5px 11px #9a0f0f,
+                inset -5px -5px 11px #d01515;
+        }
+
+        .metric-btn {
+            min-width: 150px;
+            padding: 15px 10px;
+            margin: 20px;
+            background: #b51212;
+            box-shadow: 5px 5px 11px #9c0f0f,
+                -5px -5px 11px #ce1515;
+            border: none;
+            border-radius: 25px;
+            color: rgb(255, 255, 255);
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .metric-btn:active {
+            box-shadow: inset 5px 5px 11px #9c0f0f,
+                inset -5px -5px 11px #ce1515;
+        }
+    </style>
+    {% endif %}
+</div>
+
+<script>
+    var plot1 = [{
+        x: ['Tropical Depression', 'Tropical Storm', 'Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5'],
+        y: [22069, 31038, 7342, 3418, 3398, 2577, 415],
+        type: 'bar'
+    }];
+
+    plot1_layout = {
+        title: 'Cyclone Frequency based on Category in Dataset',
+    }
+
+    Plotly.newPlot('plot1', plot1, plot1_layout);
+
+    years = []
+    for (let i = 2000; i <= 2021; i++) {
+        years.push(i);
+    }
+
+    plot2_layout = {
+        title: 'Cyclone Frequency over past 2 Decades',
+    }
+
+    var plot2 = [{
+        x: years,
+        y: [121, 119, 124, 121, 129, 141, 132, 115, 124, 126, 102, 132, 131, 139, 121, 136, 140, 141, 150, 143, 122],
+        type: 'line'
+    }];
+
+    Plotly.newPlot('plot2', plot2, plot2_layout);
+</script>
+{% endblock %}

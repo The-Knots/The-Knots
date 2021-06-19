@@ -1,0 +1,379 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<style>
+    :root {
+        --font-color: #222;
+        --bg-color: #f2f3f7;
+        --button-bg-color: #f2f3f7;
+        --button-shadow:
+            -6px -6px 8px rgba(255, 255, 255, 0.9),
+            5px 5px 8px rgba(0, 0, 0, 0.07);
+    }
+
+    [data-theme="dark"] {
+        --font-color: #fff;
+        --bg-color: #181818;
+        --button-bg-color: #121212;
+        --button-shadow:
+            -2px -2px 4px rgba(255, 255, 255, 0.05),
+            0 0 10px 10px rgba(255, 255, 255, 0.005),
+            2px 2px 8px rgba(60, 60, 60, 0.1);
+    }
+
+    html {
+        box-sizing: border-box;
+        font-size: 18px;
+        font-family: 'Roboto', sans-serif;
+        color: var(--font-color);
+    }
+
+    *,
+    *:before,
+    *:after {
+        box-sizing: inherit;
+    }
+
+    body {
+        background-color: #f2f2f2;
+    }
+
+    .color-cool {
+        color: #077dfe;
+    }
+
+    .color-warm {
+        color: #ff7a00;
+    }
+
+    .container {
+        display: flex;
+        justify-content: space-evenly;
+        padding-top: 25px;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    @media screen and (min-width:800px) {
+        .container {
+            flex-direction: row;
+        }
+    }
+
+    .app-container {
+        background-color: var(--bg-color);
+        border-radius: 40px;
+        box-shadow: -2px -2px 4px 0px #ffffff, 50px 50px 50px 0px rgba(0, 0, 0, .25);
+        display: block;
+        flex: 1;
+        min-height: 500px;
+        max-width: 350px;
+        margin-bottom: 25px;
+        overflow: hidden;
+        padding: 30px;
+    }
+
+    .app-top-bar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .app-heading {
+        color: var(--font-color);
+        display: block;
+        flex: 1;
+        font-size: 28px;
+        font-weight: 800;
+        margin: 0;
+        text-align: center;
+    }
+
+    button {
+        border: 0;
+
+        &:focus {
+            border: none;
+            outline: 0 !important;
+            outline-style: none;
+        }
+    }
+
+    .button {
+        color: var(--font-color);
+        position: relative;
+        border-radius: 15px;
+        background: var(--button-bg-color);
+        font-weight: 700;
+        transition: all 100ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: var(--button-shadow);
+        cursor: pointer;
+
+        &.button-link {
+            color: #067CF8;
+            display: block;
+            font-size: 17px;
+            margin: 30px 0 0;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        &.button-small {
+            color: #6D6E74;
+            font-size: 22px;
+            line-height: 40px;
+            width: 40px;
+            height: 40px;
+        }
+
+        &.button-large {
+            display: flex;
+            font-size: 20px;
+            flex-direction: column;
+            padding: 15px;
+            text-align: left;
+            width: 45%;
+
+            & svg {
+                margin-bottom: 40px;
+                width: 30px;
+            }
+        }
+    }
+
+    .button-dial {
+        border-radius: 50%;
+        display: flex;
+        height: 270px;
+        margin: 35px auto;
+        align-items: center;
+        justify-content: center;
+        width: 270px;
+    }
+
+    .button-dial-top {
+        background: var(--button-bg-color);
+        box-shadow: var(--button-shadow);
+        border-radius: 50%;
+        width: 70%;
+        height: 70%;
+        margin: 0 auto;
+        position: absolute;
+        top: 15%;
+        left: 15%;
+        text-align: center;
+        z-index: 5;
+    }
+
+    .button-dial-label {
+        color: #067CF8;
+        font-size: 28px;
+        fill: #067CF8;
+        position: relative;
+        z-index: 10;
+    }
+
+    .button-dial-spoke {
+        background-color: rgba(96, 171, 254, 0.6);
+        display: block;
+        height: 2px;
+        width: 83%;
+        position: absolute;
+        margin: 0 auto;
+        z-index: 5;
+        top: 50%;
+
+        &:nth-child(2) {
+            transform: rotate(30deg);
+        }
+
+        &:nth-child(3) {
+            transform: rotate(60deg);
+        }
+
+        &:nth-child(4) {
+            transform: rotate(90deg);
+        }
+
+        &:nth-child(5) {
+            transform: rotate(120deg);
+        }
+
+        &:nth-child(6) {
+            transform: rotate(150deg);
+        }
+    }
+
+    .button-block {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 24px;
+        width: 100%;
+
+        span {
+            font-size: 16px;
+        }
+    }
+
+    .subtle {
+        color: #6D6E74;
+    }
+
+    .flex-button-container {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+{% endblock %}
+
+{% block highlight %}
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link active" aria-current="page" href="{{ url_for('dashboard') }}">Dashboard</a>
+    </li>
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link" href="{{ url_for('speed_pred') }}">Speed Prediction</a>
+    </li>
+    <li class="nav-item mx-lg-3">
+        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid d-flex justify-content-center" style="margin-top: 5%; margin-bottom: 5%;">
+    <div class="container" style="width:400px;margin-left: 10px">
+        <div class="app-container">
+            <div class="app-top-bar">
+                <h1 class="app-heading">{{ state }}, {{country}}</h1>
+            </div>
+            <div class="app-content">
+                <button class="button button-block">
+                    <span class="subtle">Wind Speed</span> <span>{{weather.wind.speed}}</span>
+                </button>
+                <div class="button button-dial">
+                    <span class="button-dial-spoke"></span>
+                    <span class="button-dial-spoke" style="transform: rotate(30deg);"></span>
+                    <span class="button-dial-spoke" style="transform: rotate(60deg);"></span>
+                    <span class="button-dial-spoke" style="transform: rotate(90deg);"></span>
+                    <span class="button-dial-spoke" style="transform: rotate(120deg);"></span>
+                    <span class="button-dial-spoke" style="transform: rotate(150deg);"></span>
+
+                    <div class="button-dial-top"></div>
+                    <div class="button-dial-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                            x="0px" y="0px" viewBox="0 0 100 125" enable-background="new 0 0 100 100" xml:space="preserve">
+                            <g>
+                                <path
+                                    d="M60.333,68.349V11.111C60.333,4.984,55.349,0,49.222,0c-6.126,0-11.111,4.984-11.111,11.111v57.237   c-4.15,3.323-6.667,8.397-6.667,13.874c0,9.802,7.975,17.777,17.777,17.777C59.024,100,67,92.024,67,82.223   C67,76.746,64.482,71.672,60.333,68.349z M44.778,48.363h4.444v-4.444h-4.444V35.03h4.444v-4.444h-4.444v-8.889h4.444v-4.444   h-4.444v-6.142c0-2.455,1.99-4.444,4.444-4.444c2.455,0,4.445,1.989,4.445,4.444v41.111h-8.889V48.363z" />
+                            </g>
+                        </svg>
+                        {{ (weather.main.temp - 273) | round }}&deg;C
+                    </div>
+                </div>
+                <div class="flex-button-container">
+                    <button class="button button-large px-3 py-2">
+                        <img class = "my-2" src="{{ url_for('static', filename = 'images/clouds.png') }}" alt="">
+                        <br>
+                        <div class="text-center">{{weather.weather[0].main}}</div>
+                    </button>
+                    <button class="button button-large px-4">
+                        <img class = "my-2" src="{{ url_for('static', filename = 'images/humidity.jpg') }}" alt="">
+                        <br>
+                        <div class="text-center">{{weather.main.humidity}}</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container my-3 mx-3" style="border-radius: 50px; background: #e0e0e0; box-shadow: inset 20px 20px 60px #bebebe, inset -20px -20px 60px #ffffff;">
+        <table class="text-center">
+            <tr>
+                <td class="h3">
+                    <div class="text-center py-2">
+                        About Us<br>
+                    </div>
+                </td>
+                <td class="h3">
+                    <div class="text-center py-2">
+                        Tropical Cyclone Names<br>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="px-2">
+                    The cyclones are irregular wind movements involving closed air circulation around a low pressure centre. This closed air circulation is caused by atmospheric disturbances over and above the earth’s surface, coupled with the earth’s ‘rotation which imparts to these disturbances a whirling motion.<br><br>
+                    Cyclones are dangerous and every year many families and properties get affected due to this. We can't stop Mother Nature's Disaster, but we can surely be prepared for it. We aim to solve and help the people by alerting them regarding the presence of cyclones and what's the speed of it and there by saving lives.
+                </td>
+                <td class="px-2" rowspan="2">
+                    <img src="{{ url_for('static', filename = 'images/cyc-names.png') }}" style="border-radius: 25px;">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="my-3 mx-2">
+        <img src="{{ url_for('static', filename = 'images/cyc-types.png') }}" alt="">
+    </div>
+</div>
+<div style="background-color: teal;">
+    <br>
+    <div class="container h1 display-3">Hurricane Safety Measure</div>
+    <br>
+    <div class="container col-6" style="margin-left: 0px; padding-top: 2%; padding-bottom: 1%; background-color: aqua; border-bottom-right-radius: 100px;border-top-right-radius: 100px;">
+        <table>
+            <td>
+                <ul>
+                    <li style="padding-bottom: 5px;">Long before a warning is issued, coastal residents should make evacuation plans. Identify a safe shelter that is likely outside of harm’s way, and a route to get there. This can include stocking up on emergency supplies such as food, water, protective clothing, medications, batteries, flashlights, important documents, road maps, and a full tank of gas.</li>
+                    <li style="padding-bottom: 5px;">Store at least three days worth of food, in anticipation of a hurricane.</li>
+                    <li style="padding-bottom: 5px;">Charge electronics and keep portable batteries nearby—but don’t assume you will have a cell or radio signal during the storm. It can help to purchase battery-operated radios for back-up.</li>
+                    <li style="padding-bottom: 5px;">But, don’t use your phone or handle electrical equipment unless necessary. Because lightning often follows wires, using a landline or other wired device could increase your chances of getting electrocuted. Even if you do get cell service, limit time on the phone to free up circuits for emergency personnel.</li>
+                    <li style="padding-bottom: 5px;">If you live in a hurricane zone, invest in permanent storm shutters for windows. These will offer the best protection and reduce chances of shattering. If you don’t have storm shutters, the DHS recommends boarding up windows with cut-to-fit plywood.</li>
+                    <li style="padding-bottom: 5px;">It’s also a good idea to keep clean such infrastructure as pipes and storm drains, to reduce damages as much as possible in the event that flooding occurs.</li>
+                </ul>
+            </td>
+            <td>
+                <p class="h3" style="transform: rotate(90deg);"><b>BEFORE</b></p>
+            </td>
+        </table>
+    </div>
+    <div class="container col-6" style="margin-right: 0px; padding-top: 2%; padding-bottom: 1%; background-color: coral; border-bottom-left-radius: 100px;border-top-left-radius: 100px;">
+        <table>
+            <td>
+                <p class="h3" style="transform: rotate(270deg);"><b>DURING</b></p>
+            </td>
+            <td>
+                <ul>
+                    <li style="padding-bottom: 5px;">As a storm unfolds, people should listen to local authorities on radio or television.</li>
+                    <li style="padding-bottom: 5px;">Evacuation routes often close as a hurricane develops, which is why it is strongly advised to heed all recommendations and leave the area before a storm hits. However, if forced to weather a storm, take cover in the most secure building possible and stay away from windows.</li>
+                    <li style="padding-bottom: 5px;">Remember that a lull often signifies the storm’s eye—not its end. Anyone riding out a hurricane should wait for authorities to announce that the danger has passed.</li>
+                    <li style="padding-bottom: 5px;">Disconnect all electrical appliances. Listen to your battery radio for updates.</li>
+                    <li style="padding-bottom: 5px;">Stay inside and shelter (well clear of windows) in the strongest part of the building, i.e. cellar, internal hallway or bathroom. Keep evacuation and emergency kits with you.</li>
+                    <li style="padding-bottom: 5px;">If the building starts to break up, protect yourself with mattresses, rugs or blankets under a strong table or bench or hold onto a solid fixture, e.g. a water pipe.</li>
+                </ul>
+            </td>
+        </table>
+    </div>
+    <div class="container col-6" style="margin-left: 0px; padding-top: 2%; padding-bottom: 1%; background-color: lavender; border-bottom-right-radius: 100px;border-top-right-radius: 100px;">
+        <table>
+            <td>
+                <ul>
+                    <li style="padding-bottom: 5px;">Open windows to help dry the house.</li>
+                    <li style="padding-bottom: 5px;">No matter how eager you are to re-start your life, experts say it’s best to take things slow after a hurricane.</li>
+                    <li style="padding-bottom: 5px;">If you evacuated during the storm, don’t return until authorities say it is safe to do so. This could mean waiting an extended period of time.</li>
+                    <li style="padding-bottom: 5px;">Once home, avoid electronic equipment and power lines. (You may even want to have a licensed electrician check your home for possible damages)</li>
+                    <li style="padding-bottom: 5px;">Keep on the look-out for reptiles and rodents that may have washed into your space.</li>
+                    <li style="padding-bottom: 5px;">Do not use generators, electric or gas appliances, or open flames in case there are gas leaks, until you can be sure everything is in good order.</li>
+                    <li style="padding-bottom: 5px;">Do not eat food from the refrigerator or drink tap water until you have checked for contamination. (Instead, you can obtain safe drinking water by melting ice cubes.)</li>
+                </ul>
+            </td>
+            <td>
+                <p class="h3" style="transform: rotate(90deg);"><b>AFTER</b></p>
+            </td>
+        </table>
+    </div>
+    <br>
+</div>
+
+<footer class="text-center py-4">
+    Website and model built <b>The Knots</b> 🌀
+</footer>
+{% endblock %}
