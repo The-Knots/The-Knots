@@ -40,13 +40,8 @@
     {% endwith %}
 
     <div class="container-fluid d-flex justify-content-center">
-<<<<<<< HEAD
         <form action = "{{ url_for('speed_pred') }}" method = "POST" enctype = "multipart/form-data">
             <div class="drop-zone">
-=======
-        <form action = "http://localhost:5000/speed" method = "POST" enctype = "multipart/form-data">
-            <div class="drop-zone"  style="margin-right: 60px;">
->>>>>>> 1b8f6a342768a0882027627fd03c8adc2a8b0203
                 <span class="drop-zone__prompt" style="color: rgb(36, 36, 36);">Drop file here or click to upload</span>
                 <input type="file" name="file" class="drop-zone__input" data-height="500">
             </div>
