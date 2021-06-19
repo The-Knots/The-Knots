@@ -6,13 +6,8 @@ body{
 }
 
 .drop-zone {
-<<<<<<< HEAD
     width: 950px;
     height: 600px;
-=======
-    width: 1080px;
-    height: 700px;
->>>>>>> 1b8f6a342768a0882027627fd03c8adc2a8b0203
     padding: 25px;
     margin-top: 7%;
     display: flex;
