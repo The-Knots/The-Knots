@@ -26,3 +26,21 @@ The cyclones are irregular wind movements involving closed air circulation aroun
 2. **Inference:** Passing transformed image to ResNet-101 model loaded over saved weights of training.
 3. **Update the Results:** Determining cyclone type based on prediction  speed  and pass the values to Flask
 4. **Suggestion Generation:** Generating safety measures based on cyclone category along with plots and description.
+
+## How to run the Project:-
+1. **Clone the repo.**
+```
+git clone https://github.com/The-Knots/The-Knots.git
+```
+2. **Navigate to Repo Directory**
+``` 
+cd The-Knots
+```
+3. **Download Package Dependancies**
+``` 
+pip install -r requirements.txt
+```
+4. **Run app.py**
+``` 
+python app.py
+```
