@@ -5,14 +5,10 @@ torchvision==0.9.1+cpu
 geocoder
 requests
 Flask==1.1.1
-gunicorn==20.1.0
+gunicorn==19.9.0
 itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 Werkzeug==0.15.5
 numpy>=1.9.2
 flasgger==0.9.4
-
-
-
-
