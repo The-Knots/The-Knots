@@ -2,7 +2,7 @@
 
 {% block head %}
 <style>
-    img {
+    img.cyclone{
         box-shadow: 20px 20px 60px #000000,
             -20px -20px 60px #ffffff;
     }
@@ -50,7 +50,7 @@
         <table class="d-flex align-items-center justify-content-center">
             <tr>
                 <td style="padding-left: 20px;">
-                    <img src="{{ url_for('static', filename= data.name) }}"
+                    <img class = "cyclone" src="{{ url_for('static', filename= data.name) }}"
                         style="height: 360px; width:360px; border-radius: 50px;">
                 </td>
                 <td class="text-center" style="padding-left: 50px;">

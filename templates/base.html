@@ -8,6 +8,19 @@
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <link rel = "icon" href = "{{ url_for('static', filename = 'images/logo.png') }}" type = "image/x-icon">
     <title>The Knots</title>
+    <style>
+            .cyc{
+                -webkit-animation: rotation 2s infinite linear;
+            }
+            @-webkit-keyframes rotation {
+                from {
+                        -webkit-transform: rotate(0deg);
+                }
+                to {
+                        -webkit-transform: rotate(359deg);
+                }
+            }
+    </style>
     {% block head %}
         
     {% endblock %}
@@ -17,7 +30,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="mx-3 navbar-brand" href="{{ url_for('dashboard') }}">
-                <strike><strong>The Knots</strong></strike> 🌀
+                <strike><strong>The Knots</strong></strike> <img src="/static/images/logo.png" class="cyc" style="width: 24px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
