@@ -2,12 +2,6 @@
 
 {% block head %}
 <style>
-    body{
-        background-image: url("/static/images/team.jpg");
-        width: 100%;
-        height: auto;
-        background-size: cover;
-    }
     .card{
         background-color: whitesmoke;
         box-shadow: 5px 5px 15px lightblue;
@@ -31,73 +25,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="display-3 text-center my-5" style="color: white;">
-        <b>Meet { The Knots 🌀 }</b>        
-    </div>
-    <div class="container d-flex justify-content-around">
-        <div class="card" style="width: 25rem; border-radius: 30px;">
-            <div class="card-body">
-                <div class="dp text-center mb-2">
-                    <img class = "photo text-center" src="{{ url_for('static', filename = 'images/manish.jpeg') }}" style="width: 125px; border-radius: 50%;">
-                </div>
-                <div class="top text-center">
-                    <h4 class="card-title">Manish Sharma</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">Machine Learning | Kaggler</h5>
-                </div>
-                <hr>
-                
-                <p class="card-text text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit omnis numquam, repellendus impedit voluptatem perspiciatis error ea natus voluptate velit quisquam necessitatibus qui, quaerat ipsum. <br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus adipisci ut, at dolores quibusdam cumque quaerat ea incidunt odio velit earum nostrum quo aperiam tempora aliquam vero laudantium sint tempore.</p>
-                <hr>
-                <div class="links d-flex justify-content-center">
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/li-logo.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/git.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/twitter.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/kaggle.svg') }}" style="width: 50px; border-radius: 50%;"></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="card" style="width: 25rem; border-radius: 30px;">
-            <div class="card-body">
-                <div class="dp text-center mb-2">
-                    <img class = "photo text-center" src="{{ url_for('static', filename = 'images/Krypticmouse.png') }}" style="width: 125px; border-radius: 50%;">
-                </div>
-                <div class="top text-center">
-                    <h4 class="card-title">Herumb Shandilya</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">Machine Learning | IoT | Web Dev</h5>
-                </div>
-                <hr>
-                
-                <p class="card-text text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit omnis numquam, repellendus impedit voluptatem perspiciatis error ea natus voluptate velit quisquam necessitatibus qui, quaerat ipsum. <br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus adipisci ut, at dolores quibusdam cumque quaerat ea incidunt odio velit earum nostrum quo aperiam tempora aliquam vero laudantium sint tempore.</p>
-                <hr>
-                <div class="links d-flex justify-content-center">
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/li-logo.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/git.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/gfg.jpg') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/hash.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                </div>
-            </div>
-          </div>
-
-          <div class="card" style="width: 25rem; border-radius: 30px;">
-            <div class="card-body">
-                <div class="dp text-center mb-2">
-                    <img class = "photo text-center" src="{{ url_for('static', filename = 'images/akshat.jpeg') }}" style="width: 125px; border-radius: 50%;">
-                </div>
-                <div class="top text-center">
-                    <h4 class="card-title">Akshat Gurnani</h4>
-                    <h5 class="card-subtitle mb-2 text-muted">Machine Learning | Cloud Dev</h5>
-                </div>
-                <hr>
-                
-                <p class="card-text text-center">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit omnis numquam, repellendus impedit voluptatem perspiciatis error ea natus voluptate velit quisquam necessitatibus qui, quaerat ipsum. <br><br> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus adipisci ut, at dolores quibusdam cumque quaerat ea incidunt odio velit earum nostrum quo aperiam tempora aliquam vero laudantium sint tempore.</p>
-                <hr>
-                <div class="links d-flex justify-content-center">
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/li-logo.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/git.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                    <a href="#" class="card-link"><img class = "social" src="{{ url_for('static', filename = 'logo/twitter.png') }}" style="width: 50px; border-radius: 50%;"></a>
-                </div>
-            </div>
-          </div>
+    <div class="display-3 text-center my-5">
+        <b>About The Team</b>
     </div>
 {% endblock %}
